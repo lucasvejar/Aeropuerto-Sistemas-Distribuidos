@@ -1,4 +1,4 @@
-package aplicacion;
+
 
 import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
