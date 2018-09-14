@@ -1,6 +1,7 @@
 
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -8,7 +9,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 
-public class Avion  extends Thread {
+public class Avion  extends Thread implements Serializable {
 
 	
 	//----------- RMI ------------------//
@@ -18,6 +19,7 @@ public class Avion  extends Thread {
 	private Integer puertoServidor;
 	//------- propios de la clase Avion -------------//
 	private Integer nroAvion;
+
 	
 	
 	//------------- Constructor -----------------------------//
@@ -44,10 +46,12 @@ public class Avion  extends Thread {
 	//----------- Metodos para pedir pista y aterrizar ------------------//
 	
 	public void pidePista() throws RemoteException, InterruptedException {
-		rmiServidor.pidePista(this.nroAvion);
+		 rmiServidor.pidePista(this);
 	}
 	
-	
+	public void finaliza() throws RemoteException, InterruptedException {
+		rmiServidor.aterriza(this);
+	}
 	
 	
 	
@@ -56,17 +60,11 @@ public class Avion  extends Thread {
 	@Override
 	public void run() {
 		try {
-		
-			
-			//Integer random = (int) (Math.random()*10 + 5);
-			//sleep(random*1000);
-			System.err.println("el avion pide la pista");
+		//	Integer random = (int) (Math.random()*10 + 5);
+		//	this.wait(random*1000);  // para empezar a pedir
 			pidePista();
-			
-		
-		
+			finaliza();
 		} catch (RemoteException | InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -31,16 +31,16 @@ public class mainAvion {
 		Avion om = new Avion("127.0.0.1", 2000,10);
 		om.setName("Avion diez");
 		
-		s.run();
-		a.run();
-		d.run();
-		r.run();
-		g.run();
-		q.run();
-		o.run();
-		l.run();
-		ou.run();
-		om.run();
+		s.start();
+		a.start();
+		d.start();
+		r.start();
+		g.start();
+		q.start();
+		o.start();
+		l.start();
+		ou.start();
+		om.start();
 		
 		
 	}
