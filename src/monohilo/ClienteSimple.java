@@ -25,7 +25,6 @@ public class ClienteSimple {
     {
     	 try {  
          
-             
              while(true){
             	 
             	this.setSk(new Socket("127.0.0.1", 10578));   //127.0.0.1   192.168.1.100
@@ -33,18 +32,19 @@ public class ClienteSimple {
                 this.setDis(new DataInputStream(this.getSk().getInputStream()));  
                 
                 //----------- Leo el mensaje que se pone por pantalla ---------------//
-     			System.out.println("Cliente: \t");
-     			String mensaje = new Scanner(System.in).nextLine();
+                System.out.println("Cliente: \t");
+                String mensaje = new Scanner(System.in).nextLine();
      			
      			//--------- parte importante ------------------------//
-                
+     
                 this.getDos().writeUTF(mensaje);  
-                String respuesta="";
+                String respuesta=""; 
                 
                 // some other code
                 
                 respuesta = this.getDis().readUTF(); 
-                System.out.println("Servidor: " + respuesta);  
+                System.out.println("Servidor: " + respuesta);
+                
                 
                 //------------------------------------------------------//
                 

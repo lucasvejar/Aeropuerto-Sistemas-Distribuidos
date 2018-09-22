@@ -38,10 +38,11 @@ public class Servidor {
                 dos = new DataOutputStream(socket.getOutputStream());  
                 dis = new DataInputStream(socket.getInputStream());  
                 idSession++; 
+                
                 System.out.println("Cliente: " + dis.readUTF());
                 System.out.println("Servidor: \t");
                 String mensaje = new Scanner(System.in).nextLine();
-                dos.writeUTF(mensaje);  
+                dos.writeUTF(mensaje);
             }    		 
     }
     	
