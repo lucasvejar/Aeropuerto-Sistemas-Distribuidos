@@ -25,14 +25,13 @@ public class ServidorAviones extends UnicastRemoteObject implements InterfazMens
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Integer> recurso;  //--> el recurso son las pistas
 	private Integer cantidadPistasAeropuerto = 5;
-	//private int[] pistas = new int[5];
+	
 	
 	//----------- Constructor ------------------//
 	
 	protected ServidorAviones(int numeroPuertoRemoto) throws RemoteException, UnknownHostException {
 		super();
 		this.setRecurso(new ArrayList());
-		//this.pistas[0] = -1;this.pistas[1] =-1;this.pistas[2] =-1;this.pistas[3] =-1;this.pistas[4] =-1;
 		this.ip = InetAddress.getLocalHost().getHostAddress();
 		this.nroPuerto = numeroPuertoRemoto;
 		this.registro = LocateRegistry.createRegistry(nroPuerto);
@@ -48,9 +47,7 @@ public class ServidorAviones extends UnicastRemoteObject implements InterfazMens
 	public synchronized void pidePista(Avion avion) throws RemoteException, InterruptedException {
 		
 		while (this.getRecurso().size() >= this.getCantidadPistasAeropuerto()) {
-		//while (pistaLlena()) {
 			System.out.println("---> Avion "+avion.getNumero()+" esperando pista para aterrizar...");
-			//avion.wait();
 			wait();
 		}
 		concedePista(avion);
@@ -58,44 +55,18 @@ public class ServidorAviones extends UnicastRemoteObject implements InterfazMens
 	}
 
 
-	/*public Boolean pistaLlena() {
-		for (int i = 0; i < pistas.length; i++) {
-			if (pistas[i] == -1) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	public void buscar(Integer nro) {
-		for (int i = 0; i < pistas.length; i++) {
-			if (pistas[i] == -1) {
-				pistas[i] =nro;
-			}
-		}
-	} */
 	
 	public synchronized void concedePista(Avion avion) throws InterruptedException, RemoteException {
 		this.getRecurso().add(avion.getNumero());
-		//buscar(avion.getNumero());
 		System.out.println("Pista :"+getRecurso().indexOf(avion.getNumero()));
 		System.out.println("Se asigno una pista al Avion "+avion.getNumero());
 		avion.sleep(5000); // 30 segundos
-		//aterriza(avion);
 	}
 	
 
-/*	public void remover(Integer nro) {
-		for (int i = 0; i < pistas.length; i++) {
-			if(pistas[i] == nro) {
-				pistas[i] = (Integer) null;
-			}
-		}
-	} */
 	
 	public synchronized void aterriza(Avion avion) throws RemoteException, InterruptedException {		
 		this.getRecurso().remove(avion.getNumero());
-	//	remover(avion.getNumero());
 		System.out.println(avion.getNumero()+" aterrizo correctamente!");
 		notifyAll();
 	}
