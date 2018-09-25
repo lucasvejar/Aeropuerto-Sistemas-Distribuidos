@@ -59,7 +59,7 @@ public class ServidorAviones extends UnicastRemoteObject implements InterfazMens
 	public synchronized void concedePista(Avion avion) throws InterruptedException, RemoteException {
 		this.getRecurso().add(avion.getNumero());
 		System.out.println("Pista :"+getRecurso().indexOf(avion.getNumero()));
-		System.out.println("Se asigno una pista al Avion "+avion.getNumero());
+		System.out.println("Se asigno la pista al Avion "+avion.getNumero());
 		avion.sleep(5000); // 30 segundos
 	}
 	
